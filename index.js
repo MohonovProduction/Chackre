@@ -1,6 +1,7 @@
 const { Telegraf, session, Scenes: { WizardScene, Stage }, Markup } = require('telegraf')
 const fs = require('fs')
 const { Config } = require('./BotConfig')
+const fucks = require('./assets/fuck')
 const jokes = require('./assets/jokes')
 const gachies = require('./assets/gachi')
 const radio = []
@@ -22,10 +23,9 @@ const addJoke = new WizardScene(
 	},
 	ctx => {
 		if (ctx?.message?.text) {
-			console.log(ctx.message.text)
 			jokes[jokes.length] = ctx.message.text
+
 			const data = 'module.exports = ' + JSON.stringify(jokes)
-			console.log(data)
 			fs.writeFile('assets/jokes.js', data, err => {
 				let answer = (err) ? err : 'Анекдот добавлен ☺️'
 				ctx.reply(answer)
@@ -72,28 +72,62 @@ const addGachi = new WizardScene(
 	}
 )
 
+const fuckEmoji = '😈,🤬,😡,😤,😠,👿,👺,👹,🦹‍♂️,!!!'
+
+const addFuck = new WizardScene(
+	'addFuck',
+	ctx => {
+		ctx.reply('Выскажи всё, что думаешь 🤬', close_scene)
+		ctx.wizard.next()
+	},
+	ctx => {
+		const msg = 'fuck check'
+		if (!ctx?.message?.text) return ctx.scene.leave()
+		console.log(msg, false)
+		for (el of fucks) {
+			if (el === ctx.message.text) {
+				ctx.reply('Так уже посылали 😈')
+				return ctx.scene.leave() 
+				break
+			} 
+		}
+		console.log(msg, false)
+
+		fucks[fucks.length] = ctx.message.text + ' ' + getRandomEl(fuckEmoji.split(','))
+		const data = 'module.exports = ' + JSON.stringify(fucks)
+
+		fs.writeFile('assets/fuck.js', data, err => {
+			let answer = (err) ? err : 'Гнев запечетлён 😈'
+			ctx.reply(answer)
+		})
+		return ctx.scene.leave();
+	}
+)
+
 const stage = new Stage();
 
 stage.register(addJoke)
 stage.register(addGachi)
+stage.register(addFuck)
 
 //Create
 const bot = new Telegraf(Config.token)
 bot.use(session())
 bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
-//Main
-bot.start((ctx) => ctx.reply('start'))
-bot.help((ctx) => ctx.reply('help'))
 
-bot.command('love', (ctx) => ctx.reply('Люблю, целую, обнимаю ❤'))
-bot.command('fuck', (ctx) => ctx.reply('Пошёл нахуй!'))
+//Main
+bot.start(ctx => ctx.reply('start'))
+bot.help(ctx => ctx.reply('help'))
+
+bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
+bot.command('fuck', ctx => ctx.reply(getRandomEl(fucks)))
 
 const jokeKey = /анек/i 
-bot.hears(jokeKey, (ctx) => ctx.reply(getRandomEl(jokes)))
+bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(jokes)))
 
 const gachiKey = /гачи|фистинг|жоп|яйц|анал|фингер|драть|еб/i
-bot.hears(gachiKey, (ctx) => ctx.reply(getRandomEl(gachies)))
+bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(gachies)))
 
 function getRandomEl(arr) {
 	const id = Math.floor(Math.random() * arr.length)
@@ -112,6 +146,7 @@ bot.command('add', (ctx) => {
 
 bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
+bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
 
 bot.action('cancel', ctx => { ctx.reply('операция отменена'); ctx.scene.leave() })
 
