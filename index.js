@@ -46,10 +46,10 @@ const addGachi = new WizardScene(
 	ctx => {
 		if (ctx?.message?.text) {
 			if (ctx.message.text.match(/https:/)) {
-				console.log(ctx.message.text)
+
 				gachies[gachies.length] = ctx.message.text
 				const data = 'module.exports = ' + JSON.stringify(gachies)
-				console.log(data);
+
 				fs.writeFile('assets/gachi.js', data, err => {
 					let answer = (err) ? err : 'Гачи добавлено 😏'
 					ctx.reply(answer)
