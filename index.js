@@ -44,24 +44,31 @@ const addGachi = new WizardScene(
 		ctx.wizard.next()
 	},
 	ctx => {
-		if (ctx?.message?.text) {
-			if (ctx.message.text.match(/https:/)) {
-
-				gachies[gachies.length] = ctx.message.text
-				const data = 'module.exports = ' + JSON.stringify(gachies)
-
-				fs.writeFile('assets/gachi.js', data, err => {
-					let answer = (err) ? err : 'Гачи добавлено 😏'
-					ctx.reply(answer)
-				})
-			return ctx.scene.leave();
-			} else {
-				ctx.reply('Это не ссылка');
-				ctx.scene.leave()
-			}
-		} else {
+		const msg = 'check gachi'
+		if (!ctx?.message?.text) return ctx.scene.leave()
+		console.log(msg, false)
+		if (!ctx.message.text.match(/https:/)) { 
+			ctx.reply('Это не ссылка')
 			return ctx.scene.leave()
 		}
+		console.log(msg, false)
+		for (el of gachies) {
+			if (el === ctx.message.text) {
+				ctx.reply('такое видео уже есть')
+				return ctx.scene.leave() 
+				break
+			} 
+		}
+		console.log(msg, false)
+
+		gachies[gachies.length] = ctx.message.text
+		const data = 'module.exports = ' + JSON.stringify(gachies)
+
+		fs.writeFile('assets/gachi.js', data, err => {
+			let answer = (err) ? err : 'Гачи добавлено 😏'
+			ctx.reply(answer)
+		})
+		return ctx.scene.leave();
 	}
 )
 

@@ -1,1 +1,1 @@
-module.exports = ["https://www.youtube.com/watch?v=u1QVBRRp0OQ","http://www.youtube.com/watch?v=Zh9dBqIht-g","https://youtu.be/hpWdUvU5xAM","https://youtu.be/1CQOBdR1RWk","https://youtu.be/bG6aRTzX5MI",]
+module.exports = ["https://www.youtube.com/watch?v=u1QVBRRp0OQ","http://www.youtube.com/watch?v=Zh9dBqIht-g","https://youtu.be/hpWdUvU5xAM","https://youtu.be/1CQOBdR1RWk","https://youtu.be/bG6aRTzX5MI","https://youtu.be/EDbSi5cN63U","https://youtu.be/EqvrhEH7WgY"]
