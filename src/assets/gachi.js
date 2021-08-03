@@ -1,7 +1,7 @@
-const fs = require('fs')
 const { Scenes: { WizardScene } } = require('telegraf')
+const fs = require('fs')
 const { close_scene } = require('./Keyboard')
-
+  
 const Gachi = {}
 
 Gachi.store = require('./store/gachi-store')
