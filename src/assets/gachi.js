@@ -1,5 +1,5 @@
-const { Scenes: { WizardScene } } = require('telegraf')
 const fs = require('fs')
+const { Scenes: { WizardScene } } = require('telegraf')
 const { close_scene } = require('./Keyboard')
   
 const Gachi = {}
