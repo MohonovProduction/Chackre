@@ -5,55 +5,15 @@ const { Config } = require('./BotConfig')
 const { Admin } = require('./src/models/Admin')
 const Fuck = require('./' + ASSETS_URL + 'Fuck')
 const Joke = require('./' + ASSETS_URL + 'Joke')
-const gachies = require('./' + ASSETS_URL + 'gachi')
+const Gachi = require('./' + ASSETS_URL + 'Gachi')
+console.log(Gachi)
 
 //Scenes
-
-/*
-const addGachi = new WizardScene(
-	'addGachi',
-	ctx => {
-		ctx.reply('♂ Вставь ссылку на новый гачи ремикс ♂', close_scene)
-		ctx.wizard.next()
-	},
-	ctx => {
-		const msg = 'check gachi'
-		if (!ctx?.message?.text) return ctx.scene.leave()
-		console.log(msg, false)
-		if (!ctx.message.text.match(/https:/)) { 
-			ctx.reply('Это не ссылка')
-			return ctx.scene.leave()
-		}
-		console.log(msg, false)
-		for (el of gachies) {
-			if (el === ctx.message.text) {
-				ctx.reply('такое видео уже есть')
-				return ctx.scene.leave() 
-				break
-			} 
-		}
-		console.log(msg, false)
-
-		gachies[gachies.length] = ctx.message.text
-		const data = 'module.exports = ' + JSON.stringify(gachies)
-
-		fs.writeFile(ASSETS_URL + 'gachi.js', data, err => {
-			let answer = (err) ? err : 'Гачи добавлено 😏'
-			ctx.reply(answer)
-		})
-		return ctx.scene.leave();
-	}
-)
-
-*/
-
 const stage = new Stage();
 
 stage.register(Joke.add)
 stage.register(Fuck.add)
-/*
 stage.register(Gachi.add)
-*/
 
 //Create
 let BOT_TOKEN = require('./env.js')
@@ -77,7 +37,7 @@ const jokeKey = /анек/i
 bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(Joke.store)))
 
 const gachiKey = /гачи|фистинг|жоп|яйц|анал|фингер|драть|еб/i
-bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(gachies)))
+bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(Gachi.store)))
 
 function getRandomEl(arr) {
 	const id = Math.floor(Math.random() * arr.length)
