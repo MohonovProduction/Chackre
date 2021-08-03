@@ -111,7 +111,8 @@ stage.register(addGachi)
 stage.register(addFuck)
 
 //Create
-const bot = new Telegraf(Config.token)
+require('dotenv')
+const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.use(session())
 bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
