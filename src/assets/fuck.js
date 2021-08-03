@@ -1,4 +1,4 @@
-const { Scenes: { WizardScene } } = require('telegraf') 
+const { Scenes: { WizardScene } } = require('telegraf') 	
 const fs = require('fs')
 const { close_scene } = require('./Keyboard')
 
