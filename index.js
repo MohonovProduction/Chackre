@@ -3,9 +3,8 @@ const fs = require('fs')
 const ASSETS_URL = 'src/assets/'
 const { Config } = require('./BotConfig')
 const { Admin } = require('./src/models/Admin')
-const fucks = require('./' + ASSETS_URL + 'fuck')
+const Fuck = require('./' + ASSETS_URL + 'Fuck')
 const Joke = require('./' + ASSETS_URL + 'Joke')
-console.log(Joke)
 const gachies = require('./' + ASSETS_URL + 'gachi')
 
 //Scenes
@@ -46,46 +45,14 @@ const addGachi = new WizardScene(
 	}
 )
 
-const fuckEmoji = '😈,🤬,😡,😤,😠,👿,👺,👹,🦹‍♂️,!!!'
-
-const addFuck = new WizardScene(
-	'addFuck',
-	ctx => {
-		ctx.reply('Выскажи всё, что думаешь 🤬', close_scene)
-		ctx.wizard.next()
-	},
-	ctx => {
-		const msg = 'fuck check'
-		if (!ctx?.message?.text) return ctx.scene.leave()
-		console.log(msg, false)
-		for (el of fucks) {
-			if (el === ctx.message.text) {
-				ctx.reply('Так уже посылали 😈')
-				return ctx.scene.leave() 
-				break
-			} 
-		}
-		console.log(msg, false)
-
-		fucks[fucks.length] = ctx.message.text + ' ' + getRandomEl(fuckEmoji.split(','))
-		const data = 'module.exports = ' + JSON.stringify(fucks)
-
-		fs.writeFile(ASSETS_URL + 'fuck.js', data, err => {
-			let answer = (err) ? err : 'Гнев запечатлён 😈'
-			ctx.reply(answer)
-		})
-		return ctx.scene.leave();
-	}
-)
-
 */
 
 const stage = new Stage();
 
 stage.register(Joke.add)
+stage.register(Fuck.add)
 /*
 stage.register(Gachi.add)
-stage.register(Fuck.add)
 */
 
 //Create
@@ -101,7 +68,7 @@ bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => ctx.reply('help'))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
-bot.command('fuck', ctx => ctx.reply(getRandomEl(fucks)))
+bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 bot.on('voice', ctx => ctx.reply('Пиши пожалуйста, будь человеком'))
 bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))

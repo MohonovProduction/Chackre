@@ -4,7 +4,7 @@ const { close_scene } = require('./Keyboard')
 
 const Joke = {}
 
-Joke.store = require('./joke-store')
+Joke.store = require('./store/joke-store')
 
 Joke.add = new WizardScene(
 	'addJoke',
@@ -17,7 +17,7 @@ Joke.add = new WizardScene(
 			Joke.store[Joke.store.length] = ctx.message.text
 
 			const data = 'module.exports = ' + JSON.stringify(Joke.store)
-			fs.writeFile('joke-store.js', data, err => {
+			fs.writeFile('store/joke-store.js', data, err => {
 				let answer = (err) ? err : 'Анекдот добавлен ☺️'
 				ctx.reply(answer)
 			})
