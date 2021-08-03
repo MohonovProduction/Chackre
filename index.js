@@ -97,7 +97,7 @@ const addFuck = new WizardScene(
 		const data = 'module.exports = ' + JSON.stringify(fucks)
 
 		fs.writeFile('assets/fuck.js', data, err => {
-			let answer = (err) ? err : 'Гнев запечетлён 😈'
+			let answer = (err) ? err : 'Гнев запечатлён 😈'
 			ctx.reply(answer)
 		})
 		return ctx.scene.leave();
@@ -138,7 +138,7 @@ bot.command('add', (ctx) => {
 	const inline_keyboard = Markup.inlineKeyboard([
 		[ Markup.button.callback('Анекдот', 'joke') ],
 		[ Markup.button.callback('Гачи ремикс', 'gachi') ],
-		[ Markup.button.callback('Оскарбление', 'fuck') ]
+		[ Markup.button.callback('Оскорбление', 'fuck') ]
 	])
 
 	ctx.reply('Что добавить?', inline_keyboard)
