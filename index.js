@@ -4,36 +4,13 @@ const ASSETS_URL = 'src/assets/'
 const { Config } = require('./BotConfig')
 const { Admin } = require('./src/models/Admin')
 const fucks = require('./' + ASSETS_URL + 'fuck')
-const jokes = require('./' + ASSETS_URL + 'jokes')
+const Joke = require('./' + ASSETS_URL + 'Joke')
+console.log(Joke)
 const gachies = require('./' + ASSETS_URL + 'gachi')
 
 //Scenes
-const close_scene = Markup.inlineKeyboard(
-	[Markup.button.callback('Отмена', 'cancel')]
-)
 
-const addJoke = new WizardScene(
-	'addJoke',
-	ctx => {
-		ctx.reply('Отправь мне анекдот', close_scene)
-		return ctx.wizard.next()
-	},
-	ctx => {
-		if (ctx?.message?.text) {
-			jokes[jokes.length] = ctx.message.text
-
-			const data = 'module.exports = ' + JSON.stringify(jokes)
-			fs.writeFile(ASSETS_URL + 'jokes.js', data, err => {
-				let answer = (err) ? err : 'Анекдот добавлен ☺️'
-				ctx.reply(answer)
-			})
-			return ctx.scene.leave();
-		} else { 
-			return ctx.scene.leave(); 
-		}
-	},
-)
-
+/*
 const addGachi = new WizardScene(
 	'addGachi',
 	ctx => {
@@ -101,11 +78,15 @@ const addFuck = new WizardScene(
 	}
 )
 
+*/
+
 const stage = new Stage();
 
-stage.register(addJoke)
-stage.register(addGachi)
-stage.register(addFuck)
+stage.register(Joke.add)
+/*
+stage.register(Gachi.add)
+stage.register(Fuck.add)
+*/
 
 //Create
 let BOT_TOKEN = require('./env.js')
@@ -126,7 +107,7 @@ bot.on('voice', ctx => ctx.reply('Пиши пожалуйста, будь чел
 bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
 
 const jokeKey = /анек/i 
-bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(jokes)))
+bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(Joke.store)))
 
 const gachiKey = /гачи|фистинг|жоп|яйц|анал|фингер|драть|еб/i
 bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(gachies)))
