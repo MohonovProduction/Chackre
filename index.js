@@ -5,11 +5,6 @@ const { Config } = require('./BotConfig')
 const fucks = require('./' + ASSETS_URL + 'fuck')
 const jokes = require('./' + ASSETS_URL + 'jokes')
 const gachies = require('./' + ASSETS_URL + 'gachi')
-const radio = []
-fs.readdir('./' + ASSETS_URL 'radio', (err, files) => {
-	if (err) console.error(err)
-	files.map(el => radio.push(el))
-})
 
 //Scenes
 const close_scene = Markup.inlineKeyboard(
