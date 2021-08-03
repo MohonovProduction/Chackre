@@ -1,11 +1,12 @@
 const { Telegraf, session, Scenes: { WizardScene, Stage }, Markup } = require('telegraf')
 const fs = require('fs')
+const ASSETS_URL = 'src/assets/'
 const { Config } = require('./BotConfig')
-const fucks = require('./assets/fuck')
-const jokes = require('./assets/jokes')
-const gachies = require('./assets/gachi')
+const fucks = require('./' + ASSETS_URL + 'fuck')
+const jokes = require('./' + ASSETS_URL + 'jokes')
+const gachies = require('./' + ASSETS_URL + 'gachi')
 const radio = []
-fs.readdir('./assets/radio', (err, files) => {
+fs.readdir('./' + ASSETS_URL 'radio', (err, files) => {
 	if (err) console.error(err)
 	files.map(el => radio.push(el))
 })
@@ -26,7 +27,7 @@ const addJoke = new WizardScene(
 			jokes[jokes.length] = ctx.message.text
 
 			const data = 'module.exports = ' + JSON.stringify(jokes)
-			fs.writeFile('assets/jokes.js', data, err => {
+			fs.writeFile(ASSETS_URL + 'jokes.js', data, err => {
 				let answer = (err) ? err : 'Анекдот добавлен ☺️'
 				ctx.reply(answer)
 			})
@@ -64,7 +65,7 @@ const addGachi = new WizardScene(
 		gachies[gachies.length] = ctx.message.text
 		const data = 'module.exports = ' + JSON.stringify(gachies)
 
-		fs.writeFile('assets/gachi.js', data, err => {
+		fs.writeFile(ASSETS_URL + 'gachi.js', data, err => {
 			let answer = (err) ? err : 'Гачи добавлено 😏'
 			ctx.reply(answer)
 		})
@@ -96,7 +97,7 @@ const addFuck = new WizardScene(
 		fucks[fucks.length] = ctx.message.text + ' ' + getRandomEl(fuckEmoji.split(','))
 		const data = 'module.exports = ' + JSON.stringify(fucks)
 
-		fs.writeFile('assets/fuck.js', data, err => {
+		fs.writeFile(ASSETS_URL + 'fuck.js', data, err => {
 			let answer = (err) ? err : 'Гнев запечатлён 😈'
 			ctx.reply(answer)
 		})
@@ -123,6 +124,7 @@ bot.help(ctx => ctx.reply('help'))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(fucks)))
+bot.command('scan', ctx => ctx.reply())
 
 const jokeKey = /анек/i 
 bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(jokes)))
