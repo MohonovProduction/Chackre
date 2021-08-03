@@ -27,6 +27,9 @@ bot.telegram.setMyCommands(Config.commands);
 bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => ctx.reply('help'))
 
+const whatsNew = 'меня отрефакторили 😏'
+bot.hears(/commits to Chackre:production/, ctx => ctx.reply(whatsNew))
+
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
