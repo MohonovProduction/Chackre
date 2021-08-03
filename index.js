@@ -27,7 +27,7 @@ bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => ctx.reply('help'))
 
 const whatsNew = 'меня отрефакторили 😏'
-bot.hears(/commits to Chackre:production/, ctx => ctx.reply(whatsNew))
+bot.command('whatsnew', ctx => ctx.reply(whatsNew))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
