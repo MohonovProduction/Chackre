@@ -6,7 +6,6 @@ const { Admin } = require('./src/models/Admin')
 const Fuck = require('./' + ASSETS_URL + 'Fuck')
 const Joke = require('./' + ASSETS_URL + 'Joke')
 const Gachi = require('./' + ASSETS_URL + 'Gachi')
-console.log(Gachi)
 
 //Scenes
 const stage = new Stage();
