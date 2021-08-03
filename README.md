@@ -8,3 +8,6 @@ Now bot have three commands
 - `/add` for add more content to bot
 ### Bot hears you
 Bot checks all your masseges and can answers with joke or gachi remix
+#### Also
+- bot can answer on voice 
+- and bot can see you in video note 
