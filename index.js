@@ -2,6 +2,7 @@ const { Telegraf, session, Scenes: { WizardScene, Stage }, Markup } = require('t
 const fs = require('fs')
 const ASSETS_URL = 'src/assets/'
 const { Config } = require('./BotConfig')
+const { Admin } = require('./src/models/Admin')
 const fucks = require('./' + ASSETS_URL + 'fuck')
 const jokes = require('./' + ASSETS_URL + 'jokes')
 const gachies = require('./' + ASSETS_URL + 'gachi')
@@ -107,7 +108,8 @@ stage.register(addGachi)
 stage.register(addFuck)
 
 //Create
-require('dotenv')
+require('dotenv').config()
+console.log(process.env.BOT_TOKEN)
 const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.use(session())
 bot.use(stage.middleware())
@@ -119,7 +121,9 @@ bot.help(ctx => ctx.reply('help'))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(fucks)))
-bot.command('scan', ctx => ctx.reply())
+//bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
+bot.on('voice', ctx => ctx.reply('Пиши пожалуйста, будь человеком'))
+bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
 
 const jokeKey = /анек/i 
 bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(jokes)))
