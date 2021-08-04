@@ -31,6 +31,7 @@ bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
+bot.hears(/^!/, ctx => Admin.pinMessage(ctx))
 
 const r = () => { return Math.random() < 0.2 }
 bot.on('voice', ctx => { 

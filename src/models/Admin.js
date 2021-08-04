@@ -15,4 +15,16 @@ Admin.scan = function(ctx) {
 	return user + ' \n\n ' + chat
 }
 
+Admin.pinMessage = function(ctx) {
+	chatId = ctx.message.from.id
+	msgId = ctx.message.message_id
+
+	if (ctx.message.text.match(/^!!!/)) {
+		ctx.telegram.pinChatMessage(chatId, msgId, { disable_notification: false })
+	} else {
+		ctx.telegram.pinChatMessage(chatId, msgId, { disable_notification: true })
+	}
+
+}
+
 module.exports = { Admin }
