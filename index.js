@@ -26,7 +26,7 @@ bot.telegram.setMyCommands(Config.commands);
 bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => ctx.reply('help'))
 
-const whatsNew = 'меня отрефакторили и понизели чувствительность к гачи фразам 😏'
+const whatsNew = 'меня отрефакторили и понизили чувствительность к гачи фразам 😏'
 bot.command('whatsnew', ctx => ctx.reply(whatsNew))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
