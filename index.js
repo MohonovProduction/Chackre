@@ -31,7 +31,9 @@ bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
-bot.on('voice', ctx => ctx.reply('Пиши пожалуйста, будь человеком'))
+bot.on('voice', ctx => { 
+	if (Math.random() < 0.2) ctx.reply('Пиши пожалуйста, будь человеком') 
+})
 bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
 
 bot.hears(Joke.regular, ctx => { 
