@@ -31,16 +31,20 @@ bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
+
+const r = () => { return Math.random() < 0.2 }
 bot.on('voice', ctx => { 
-	if (Math.random() < 0.2) ctx.reply('Пиши пожалуйста, будь человеком') 
+	if (r()) ctx.reply('Пиши пожалуйста, будь человеком') 
 })
-bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
+bot.on('video_note', ctx => {
+	if (r()) ctx.reply('Вижу котика 😼')
+})
 
 bot.hears(Joke.regular, ctx => { 
-	if (Math.random() < 0.2) ctx.reply(getRandomEl(Joke.store)) 
+	if (r()) ctx.reply(getRandomEl(Joke.store)) 
 })
 bot.hears(Gachi.regular, ctx => {
-	if (Math.random() < 0.2) ctx.reply(getRandomEl(Gachi.store))
+	if (r()) ctx.reply(getRandomEl(Gachi.store))
 })
 
 function getRandomEl(arr) {
