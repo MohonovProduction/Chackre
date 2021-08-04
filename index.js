@@ -26,8 +26,7 @@ bot.telegram.setMyCommands(Config.commands);
 bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => ctx.reply('help'))
 
-const whatsNew = 'меня отрефакторили и понизили чувствительность к гачи фразам 😏'
-bot.command('whatsnew', ctx => ctx.reply(whatsNew))
+bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
@@ -35,11 +34,12 @@ bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 bot.on('voice', ctx => ctx.reply('Пиши пожалуйста, будь человеком'))
 bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
 
-const jokeKey = /анек/i 
-bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(Joke.store)))
-
-const gachiKey = /гачи|фистинг|жоп|яйц|анал|фингер|драть|ебe/i
-bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(Gachi.store)))
+bot.hears(Joke.regular, ctx => { 
+	if (Math.random() < 0.2) ctx.reply(getRandomEl(Joke.store)) 
+})
+bot.hears(Gachi.regular, ctx => {
+	if (Math.random() < 0.2) ctx.reply(getRandomEl(Gachi.store))
+})
 
 function getRandomEl(arr) {
 	const id = Math.floor(Math.random() * arr.length)

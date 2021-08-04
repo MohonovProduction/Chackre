@@ -6,6 +6,8 @@ const Gachi = {}
 
 Gachi.store = require('./store/gachi-store')
 
+Gachi.regular = /гачи|ass|анал|300|eб|мастер|master|slave/i
+
 Gachi.add = new WizardScene(
 	'addGachi',
 	ctx => {

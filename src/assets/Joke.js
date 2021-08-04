@@ -6,6 +6,8 @@ const Joke = {}
 
 Joke.store = require('./store/joke-store')
 
+Joke.regular = /анек|шут/i
+
 Joke.add = new WizardScene(
 	'addJoke',
 	ctx => {
