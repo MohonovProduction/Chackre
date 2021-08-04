@@ -38,7 +38,7 @@ bot.on('video_note', ctx => ctx.reply('Вижу котика 😼'))
 const jokeKey = /анек/i 
 bot.hears(jokeKey, ctx => ctx.reply(getRandomEl(Joke.store)))
 
-const gachiKey = /гачи|фистинг|жоп|яйц|анал|фингер|драть|ебe/i
+const gachiKey = /гачи|фистинг|жоп|яйц|^анал|(\sанал)|фингер|драть|ебe/i
 bot.hears(gachiKey, ctx => ctx.reply(getRandomEl(Gachi.store)))
 
 function getRandomEl(arr) {
