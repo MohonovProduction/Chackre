@@ -16,7 +16,9 @@ Admin.scan = function(ctx) {
 }
 
 Admin.pinMessage = function(ctx) {
-	chatId = ctx.message.from.id
+	console.log(ctx.message)
+
+	chatId = ctx.chat.id
 	msgId = ctx.message.message_id
 
 	if (ctx.message.text.match(/^!!!/)) {
