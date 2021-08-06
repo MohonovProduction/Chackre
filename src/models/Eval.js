@@ -5,7 +5,7 @@ Eval.math = function(ctx) {
 	const text = ctx.message.text.split(' ')
 	const num1 = Number(text[1])
 	const num2 = Number(text[3])
-	if (text.length !== 4) return ctx.reply('> Не математическая операция\n_eval_', { parse_mode: 'Markdown' })
+	if (text.length !== 4) return ctx.reply('> Не возможно провести операцию\n_eval_', { parse_mode: 'Markdown' })
 
 	const operation = text[2]
 
