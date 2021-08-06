@@ -1,8 +1,9 @@
 const { Telegraf, session, Scenes: { WizardScene, Stage }, Markup } = require('telegraf')
 const fs = require('fs')
-const ASSETS_URL = 'src/assets/'
 const { Config } = require('./BotConfig')
 const { Admin } = require('./src/models/Admin')
+const { Eval } = require('./src/models/Eval')
+const ASSETS_URL = 'src/assets/'
 const Fuck = require('./' + ASSETS_URL + 'Fuck')
 const Joke = require('./' + ASSETS_URL + 'Joke')
 const Gachi = require('./' + ASSETS_URL + 'Gachi')
@@ -31,7 +32,8 @@ bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
-bot.hears(/^!/, ctx => Admin.pinMessage(ctx))
+
+bot.command('eval', ctx => Eval.math(ctx))
 
 const r = () => { return Math.random() < 0.2 }
 bot.on('voice', ctx => { 
