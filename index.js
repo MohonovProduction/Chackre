@@ -3,10 +3,10 @@ const fs = require('fs')
 const { Config } = require('./BotConfig')
 const { Admin } = require('./src/models/Admin')
 const { Eval } = require('./src/models/Eval')
-const ASSETS_URL = 'src/assets/'
-const Fuck = require('./' + ASSETS_URL + 'Fuck')
-const Joke = require('./' + ASSETS_URL + 'Joke')
-const Gachi = require('./' + ASSETS_URL + 'Gachi')
+const { Console } = require('./src/models/Console')
+const Fuck = require('./src/assets/Fuck')
+const Joke = require('./src/assets/Joke')
+const Gachi = require('./src/assets/Gachi')
 
 //Scenes
 const stage = new Stage();
@@ -34,6 +34,7 @@ bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 
 bot.command('eval', ctx => Eval.math(ctx))
+bot.command('ls', ctx => Console.ls(ctx))
 
 const r = () => { return Math.random() < 0.2 }
 bot.on('voice', ctx => { 
