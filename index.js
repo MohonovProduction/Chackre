@@ -35,6 +35,7 @@ bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 
 bot.command('eval', ctx => Eval.math(ctx))
 bot.command('ls', ctx => Console.ls(ctx))
+bot.command('tree', ctx => console.log(Console.tree))
 
 const r = () => { return Math.random() < 0.2 }
 bot.on('voice', ctx => { 
