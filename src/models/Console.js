@@ -2,7 +2,8 @@ const fs = require('fs')
 const Console = {}
 
 Console.tree = readDirs('./')
-console.log(Console.tree)
+
+Console.treePosition
 
 function readDirs(path) {
 	const tree = {}
