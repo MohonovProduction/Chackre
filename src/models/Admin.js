@@ -1,3 +1,5 @@
+const { Scenes: { WizardScene } } = require('telegraf')
+
 const Admin = {}
 
 Admin.scan = function(ctx) {
@@ -28,5 +30,21 @@ Admin.pinMessage = function(ctx) {
 	}
 
 }
+
+Admin.replyOnAudio = new WizardScene(
+	'ReplyOnAudio',
+	ctx => {
+		ctx.reply('Пиши пожалуйста, будь человеком')
+		return ctx.wizard.next()
+	},
+	ctx => {
+		if (!ctx.message.voice) {
+			ctx.reply('Так-то лучше')
+		} else {
+			ctx.reply('Невежа')
+		}
+		return ctx.scene.leave()
+	}
+)
 
 module.exports = { Admin }

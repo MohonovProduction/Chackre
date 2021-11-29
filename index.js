@@ -11,6 +11,8 @@ const Gachi = require('./src/assets/Gachi')
 //Scenes
 const stage = new Stage();
 
+stage.register(Admin.replyOnAudio)
+
 stage.register(Joke.add)
 stage.register(Fuck.add)
 stage.register(Gachi.add)
@@ -38,15 +40,17 @@ bot.command('ls', ctx => Console.ls(ctx))
 bot.command('tree', ctx => console.log(Console.tree))
 
 const r = () => { return Math.random() < 0.2 }
-bot.on('voice', ctx => { 
-	if (r()) ctx.reply('Пиши пожалуйста, будь человеком') 
+
+bot.on('voice', ctx => {
+	if (r()) ctx.scene.enter('ReplyOnAudio')
 })
+
 bot.on('video_note', ctx => {
 	if (r()) ctx.reply('Вижу котика 😼')
 })
 
-bot.hears(Joke.regular, ctx => { 
-	if (r()) ctx.reply(getRandomEl(Joke.store)) 
+bot.hears(Joke.regular, ctx => {
+	if (r()) ctx.reply(getRandomEl(Joke.store))
 })
 bot.hears(Gachi.regular, ctx => {
 	if (r()) ctx.reply(getRandomEl(Gachi.store))

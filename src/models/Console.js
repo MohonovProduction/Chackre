@@ -10,7 +10,7 @@ function readDirs(path) {
 
 	files = fs.readdirSync(path)
 
-	files = files.filter( el => { 
+	files = files.filter( el => {
 		if (!((el.name === 'env.js') || (el.search(/^\./) > -1))) {
 			return el
 		} else { console.log(el) }
@@ -35,7 +35,7 @@ function readDirs(path) {
 		})
 	})
 
-	console.log(tree)
+//	console.log(tree)
 	return tree
 }
 
