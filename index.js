@@ -7,6 +7,7 @@ const { Console } = require('./src/models/Console')
 const Fuck = require('./src/assets/Fuck')
 const Joke = require('./src/assets/Joke')
 const Gachi = require('./src/assets/Gachi')
+require('dotenv').config()
 
 //Scenes
 const stage = new Stage();
@@ -18,7 +19,7 @@ stage.register(Fuck.add)
 stage.register(Gachi.add)
 
 //Create
-let BOT_TOKEN = require('./env.js')
+let BOT_TOKEN = process.env.TOKEN
 console.log(BOT_TOKEN)
 const bot = new Telegraf(BOT_TOKEN)
 bot.use(session())
