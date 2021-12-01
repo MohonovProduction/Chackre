@@ -62,7 +62,7 @@ function getRandomEl(arr) {
 	return arr[id]
 }
 
-bot.command('add', (ctx) => {
+/*bot.command('add', (ctx) => {
 	const inline_keyboard = Markup.inlineKeyboard([
 		[ Markup.button.callback('Анекдот', 'joke') ],
 		[ Markup.button.callback('Гачи ремикс', 'gachi') ],
@@ -70,7 +70,7 @@ bot.command('add', (ctx) => {
 	])
 
 	ctx.reply('Что добавить?', inline_keyboard)
-})
+})*/
 
 //bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 //bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
