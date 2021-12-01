@@ -72,9 +72,9 @@ bot.command('add', (ctx) => {
 	ctx.reply('Что добавить?', inline_keyboard)
 })
 
-bot.action('joke', ctx => ctx.scene.enter('addJoke'))
-bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
-bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
+//bot.action('joke', ctx => ctx.scene.enter('addJoke'))
+//bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
+//bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
 
 bot.action('cancel', ctx => { ctx.reply('операция отменена'); ctx.scene.leave() })
 
