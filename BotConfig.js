@@ -6,6 +6,6 @@ module.exports.Config = {
 		{ command: '/love', description: 'любить' },
 		{ command: '/fuck', description: 'послать' },
 		{ command: '/eval', description: 'вычислить n (+,-,*,/,mod) m' },
-		{ command: '/add', description: 'добавить что-то' },
+		//{ command: '/add', description: 'добавить что-то' },
 	]
 }
