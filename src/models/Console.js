@@ -1,4 +1,4 @@
-const fs = require('fs')
+/*const fs = require('fs')
 const Console = {}
 
 Console.tree = readDirs('./')
@@ -30,7 +30,7 @@ function readDirs(path) {
 				tree[file] = branch
 			} else {
 				tree[file] = file
-				console.log(`tree: ${tree}`)
+				//console.log(`tree: ${tree}`)
 			}
 		})
 	})
@@ -44,3 +44,4 @@ Console.ls = function(ctx) {
 }
 
 module.exports = { Console }
+ */

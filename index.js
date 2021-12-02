@@ -7,7 +7,11 @@ const { Console } = require('./src/models/Console')
 const Fuck = require('./src/assets/Fuck')
 const Joke = require('./src/assets/Joke')
 const Gachi = require('./src/assets/Gachi')
+const { DBConnect } = require('./src/models/DBConnect')
 require('dotenv').config()
+
+DBConnect.test()
+DBConnect.createTables()
 
 //Scenes
 const stage = new Stage();
@@ -37,8 +41,8 @@ bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 
 bot.command('eval', ctx => Eval.math(ctx))
-bot.command('ls', ctx => Console.ls(ctx))
-bot.command('tree', ctx => console.log(Console.tree))
+//bot.command('ls', ctx => Console.ls(ctx))
+//bot.command('tree', ctx => Console.tree(ctx))
 
 const r = () => { return Math.random() < 0.2 }
 
