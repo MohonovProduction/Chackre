@@ -50,13 +50,10 @@ DBConnect.createTables = function() {
 }
 
 DBConnect.getJoke = function () {
-    con.connect((err) => {
+    const req = `SELECT * FROM jokes`
+    con.query(req, (err, res) => {
         if (err) console.log(err)
-        const req = `SELECT * FROM jokes`
-        con.query(req, (err, res) => {
-            if (err) console.log(err)
-            console.log(res)
-        })
+        console.log(res)
     })
 }
 
