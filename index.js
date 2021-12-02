@@ -11,7 +11,7 @@ const { DBConnect } = require('./src/models/DBConnect')
 require('dotenv').config()
 
 DBConnect.test()
-DBConnect.createTables()
+DBConnect.getJoke()
 
 //Scenes
 const stage = new Stage();
