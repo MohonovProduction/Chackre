@@ -1,59 +1,68 @@
 const mysql = require('mysql');
+require('dotenv').config()
 
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    port: 3307,
-    database: 'testdb'
+    database: process.env.DATABASE
 })
 
 const DBConnect = {}
 
 DBConnect.test = function() {
-    con.connect(function (err) {
+    con.connect((err) => {
         if (err) console.log(err)
         console.log('Connected!')
     })
 }
 
-DBConnect.createDB = function(name) {
+DBConnect.getJoke = function () {
     con.connect((err) => {
         if (err) console.log(err)
-        con.query(`CREATE DATABASE ${name}`, (err,res) => {
-            if (err) console.log(err)
-            console.log(res)
-        })
-    })
-}
-
-DBConnect.createTables = function() {
-    con.connect((err) => {
-        if (err) console.log(err)
-        const req = `CREATE TABLE jokes (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            text VARCHAR(1000)
-        );
-        CREATE TABLE gachies (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            link VARCHAR(1000)
-        );
-        CREATE TABLE fuck (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            text VARCHAR(1000)
-        );`
+        const req = `
+            SELECT text FROM jokes ORDER BY RAND() LIMIT 1;
+        `
         con.query(req, (err, res) => {
             if (err) console.log(err)
-            console.log(res)
+            if (res) {
+                console.log(res[0].text)
+                return res[0].text
+            }
         })
     })
 }
 
-DBConnect.getJoke = function () {
-    const req = `SELECT * FROM jokes`
-    con.query(req, (err, res) => {
+DBConnect.getGachi = function () {
+    con.connect((err) => {
         if (err) console.log(err)
-        console.log(res)
+        const req = `
+            SELECT link FROM gachi ORDER BY RAND() LIMIT 1
+        `
+        con.query(req, (err, res) => {
+            if (err) console.log(err)
+            if (res) {
+                console.log(res[0].link)
+                return res[0].link
+            }
+        })
+    })
+}
+
+DBConnect.getFuck = function () {
+    con.connect((err) => {
+        if (err) console.log(err)
+        const req = `
+            SELECT text FROM fucks ORDER BY RAND() LIMIT 1
+        `
+        con.query(req, (err,res) => {
+            if (err) console.log(err)
+            if (res) {
+                console.log(res[0].text)
+                return res[0].text
+
+            }
+        })
     })
 }
 
