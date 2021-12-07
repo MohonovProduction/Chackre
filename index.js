@@ -33,7 +33,7 @@ bot.help(ctx => {
 	console.log(ctx.message)
 })
 
-bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
+bot.command('whatsnew', ctx => ctx.replyWithMarkdown(Config.whatsNew, 'Markdown'))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => Fuck.get().then( res => ctx.reply(res) ))
