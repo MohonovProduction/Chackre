@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e47355a-5b58-4236-92d9-3fac3fab8bd7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/DBConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/DBConnect.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +80,7 @@
       <workItem from="1638859203442" duration="2181000" />
       <workItem from="1638866690712" duration="746000" />
       <workItem from="1638870244388" duration="763000" />
-      <workItem from="1638896360145" duration="16824000" />
+      <workItem from="1638896360145" duration="16892000" />
     </task>
     <servers />
   </component>
