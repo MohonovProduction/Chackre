@@ -7,11 +7,7 @@ const { Console } = require('./src/models/Console')
 const Fuck = require('./src/assets/Fuck')
 const Joke = require('./src/assets/Joke')
 const Gachi = require('./src/assets/Gachi')
-const { DBConnect } = require('./src/models/DBConnect')
 require('dotenv').config()
-
-DBConnect.test()
-DBConnect.getJoke()
 
 //Scenes
 const stage = new Stage();
@@ -55,7 +51,7 @@ bot.on('video_note', ctx => {
 })
 
 bot.hears(Joke.regular, ctx => {
-	if (r()) ctx.reply(getRandomEl(Joke.store))
+	if (r()) Joke.get().then( res => ctx.reply(res))
 })
 bot.hears(Gachi.regular, ctx => {
 	if (r()) ctx.reply(getRandomEl(Gachi.store))
@@ -66,7 +62,7 @@ function getRandomEl(arr) {
 	return arr[id]
 }
 
-/*bot.command('add', (ctx) => {
+bot.command('add', (ctx) => {
 	const inline_keyboard = Markup.inlineKeyboard([
 		[ Markup.button.callback('Анекдот', 'joke') ],
 		[ Markup.button.callback('Гачи ремикс', 'gachi') ],
@@ -74,9 +70,9 @@ function getRandomEl(arr) {
 	])
 
 	ctx.reply('Что добавить?', inline_keyboard)
-})*/
+})
 
-//bot.action('joke', ctx => ctx.scene.enter('addJoke'))
+bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 //bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
 //bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
 

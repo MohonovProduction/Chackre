@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9e47355a-5b58-4236-92d9-3fac3fab8bd7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/Joke.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/Joke.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/DBConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/DBConnect.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +26,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1y23Oh2hyLu8HODAaqITz51dkbW" />
   <component name="ProjectLevelVcsManager">
@@ -63,7 +75,17 @@
       <workItem from="1638481968689" duration="6070000" />
       <workItem from="1638567667597" duration="377000" />
       <workItem from="1638569871020" duration="851000" />
-      <workItem from="1638597109332" duration="5056000" />
+      <workItem from="1638597109332" duration="7178000" />
+      <workItem from="1638610426967" duration="3000" />
+      <workItem from="1638612062197" duration="601000" />
+      <workItem from="1638632842410" duration="4376000" />
+      <workItem from="1638715306524" duration="1305000" />
+      <workItem from="1638721416211" duration="3862000" />
+      <workItem from="1638803983976" duration="56000" />
+      <workItem from="1638859203442" duration="2181000" />
+      <workItem from="1638866690712" duration="746000" />
+      <workItem from="1638870244388" duration="763000" />
+      <workItem from="1638896360145" duration="4726000" />
     </task>
     <servers />
   </component>
