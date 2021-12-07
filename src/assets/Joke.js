@@ -19,9 +19,16 @@ Joke.add = new WizardScene(
 			DBConnect
 				.add('jokes', ctx.message.text)
 				.then( () => ctx.reply('Анекдот добавлен ☺️'))
-				.catch( () => ctx.reply('Проиошла ошибка 😞'))
+				.catch( err => {
+					if (err === 'not unique') {
+						ctx.reply('Такой анекдот уже есть 😉')
+					} else {
+						ctx.reply('Произошла ошибка 😞')
+					}
+				})
 			return ctx.scene.leave();
 		} else {
+			ctx.reply('Это не текст 😡')
 			return ctx.scene.leave();
 		}
 	},
@@ -35,7 +42,5 @@ Joke.get = function () {
 			.catch( err => reject(err) )
 	})
 }
-
-Joke.sendJoke = function () {}
 
 module.exports = Joke

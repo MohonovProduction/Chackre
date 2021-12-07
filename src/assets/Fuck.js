@@ -1,10 +1,9 @@
 const fs = require('fs')
-const { Scenes: { WizardScene } } = require('telegraf') 
+const { Scenes: { WizardScene } } = require('telegraf')
 const { close_scene } = require('./Keyboard')
+const {DBConnect} = require("../models/DBConnect");
 
 const Fuck = {}
-
-Fuck.store = require('./store/fuck-store')
 
 const emoji = '😈,🤬,😡,😤,😠,👿,👺,👹,🦹‍♂️,!!!'
 
@@ -15,32 +14,33 @@ Fuck.add = new WizardScene(
 		return ctx.wizard.next()
 	},
 	ctx => {
-		const msg = 'fuck check'
-		if (!ctx?.message?.text) return ctx.scene.leave()
-		console.log(msg, false)
-		for (el of Fuck.store) {
-			if (el === ctx.message.text) {
-				ctx.reply('Так уже посылали 😈')
-				return ctx.scene.leave() 
-				break
-			} 
+		if (!ctx?.message?.text) {
+			ctx.reply('Это не текст 😡')
+			return ctx.scene.leave()
 		}
-		console.log(msg, false)
 
-		Fuck.store[Fuck.store.length] = ctx.message.text + ' ' + getRandomEl(emoji.split(','))
-		const data = 'module.exports = ' + JSON.stringify(Fuck.store)
+		DBConnect
+			.add('fucks', ctx.message.text)
+			.then( res => ctx.reply('Гнев запечатлён 😈'))
+			.catch( err => {
+				if (err === 'not unique') {
+					ctx.reply('Так уже посылали 👿')
+				} else {
+					ctx.reply('Произошла ошибка 😞')
+				}
+			})
 
-		fs.writeFile('store/fuck-store.js', data, err => {
-			let answer = (err) ? err : 'Гнев запечатлён 😈'
-			ctx.reply(answer)
-		})
 		return ctx.scene.leave();
 	}
 )
 
-function getRandomEl(arr) {
-	const id = Math.floor(Math.random() * arr.length)
-	return arr[id]
+Fuck.get = function () {
+	return new Promise((resolve, reject) => {
+		DBConnect
+			.get('fucks')
+			.then( res => resolve(res))
+			.catch( err => reject(err))
+	})
 }
 
 module.exports = Fuck

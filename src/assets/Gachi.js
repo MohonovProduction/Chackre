@@ -1,10 +1,9 @@
 const fs = require('fs')
 const { Scenes: { WizardScene } } = require('telegraf')
 const { close_scene } = require('./Keyboard')
-  
-const Gachi = {}
+const {DBConnect} = require("../models/DBConnect");
 
-Gachi.store = require('./store/gachi-store')
+const Gachi = {}
 
 Gachi.regular = /гачи|ass|анал|300|eб|мастер|master|slave/i
 
@@ -15,32 +14,35 @@ Gachi.add = new WizardScene(
 		ctx.wizard.next()
 	},
 	ctx => {
-		const msg = 'check gachi'
-		if (!ctx?.message?.text) return ctx.scene.leave()
-		console.log(msg, false)
-		if (!ctx.message.text.match(/https:/)) { 
-			ctx.reply('Это не ссылка')
+		if (!ctx?.message?.text) {
+			ctx.reply('Это не ссылка 😡')
 			return ctx.scene.leave()
 		}
-		console.log(msg, false)
-		for (el of Gachi.store) {
-			if (el === ctx.message.text) {
-				ctx.reply('такое видео уже есть')
-				return ctx.scene.leave() 
-				break
-			} 
+		if (!ctx.message.text.match(/http:/)) {
+			ctx.reply('Это не ссылка 😡')
+			return ctx.scene.leave()
 		}
-		console.log(msg, false)
 
-		Gachi.store[Gachi.store.length] = ctx.message.text
-		const data = 'module.exports = ' + JSON.stringify(Gachi.store)
-
-		fs.writeFile('store/gachi-store.js', data, err => {
-			let answer = (err) ? err : 'Гачи добавлено 😏'
-			ctx.reply(answer)
-		})
-		return ctx.scene.leave();
+		DBConnect
+			.add('gachies', ctx.message.text)
+			.then( () => ctx.reply('Гачи добавлено 😏'))
+			.catch( err => {
+				if (err === 'not unique') {
+					ctx.reply('Такая ссылка уже есть 😉')
+				} else {
+					ctx.reply('Произошла ошибка 😞')
+				}
+			})
+			return ctx.scene.leave()
 	}
 )
 
+Gachi.get = function () {
+	return new Promise((resolve, reject) => {
+		DBConnect
+			.get('gachies')
+			.then( res => resolve(res) )
+			.catch( err => reject(err) )
+	})
+}
 module.exports = Gachi

@@ -33,7 +33,7 @@ bot.help(ctx => ctx.reply('help'))
 bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
-bot.command('fuck', ctx => ctx.reply(getRandomEl(Fuck.store)))
+bot.command('fuck', ctx => Fuck.get().then( res => ctx.reply(res) ))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 
 bot.command('eval', ctx => Eval.math(ctx))
@@ -54,7 +54,7 @@ bot.hears(Joke.regular, ctx => {
 	if (r()) Joke.get().then( res => ctx.reply(res))
 })
 bot.hears(Gachi.regular, ctx => {
-	if (r()) ctx.reply(getRandomEl(Gachi.store))
+	if (r()) Gachi.get().then( res => ctx.reply(res))
 })
 
 function getRandomEl(arr) {
@@ -73,8 +73,8 @@ bot.command('add', (ctx) => {
 })
 
 bot.action('joke', ctx => ctx.scene.enter('addJoke'))
-//bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
-//bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
+bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
+bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
 
 bot.action('cancel', ctx => { ctx.reply('операция отменена'); ctx.scene.leave() })
 
