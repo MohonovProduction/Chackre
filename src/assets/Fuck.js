@@ -10,18 +10,23 @@ const emoji = '😈,🤬,😡,😤,😠,👿,👺,👹,🦹‍♂️,!!!'
 Fuck.add = new WizardScene(
 	'addFuck',
 	ctx => {
-		ctx.reply('Выскажи всё, что думаешь 🤬', close_scene)
+		ctx.editMessageText('Выскажи всё, что думаешь 🤬', close_scene)
 		return ctx.wizard.next()
 	},
 	ctx => {
 		if (!ctx?.message?.text) {
-			ctx.reply('Это не текст 😡')
+			if (ctx?.update?.callback_query?.data === 'cancel') {
+				ctx.deleteMessage()
+			} else {
+				ctx.reply('Это не текст 😡')
+			}
+
 			return ctx.scene.leave()
 		}
 
 		DBConnect
 			.add('fucks', ctx.message.text)
-			.then( res => ctx.reply('Гнев запечатлён 😈'))
+			.then( () => ctx.reply('Гнев запечатлён 😈'))
 			.catch( err => {
 				if (err === 'not unique') {
 					ctx.reply('Так уже посылали 👿')

@@ -10,12 +10,16 @@ Gachi.regular = /гачи|ass|анал|300|eб|мастер|master|slave/i
 Gachi.add = new WizardScene(
 	'addGachi',
 	ctx => {
-		ctx.reply('♂ Вставь ссылку на новый гачи ремикс ♂', close_scene)
+		ctx.editMessageText('♂ Вставь ссылку на новый гачи ремикс ♂', close_scene)
 		ctx.wizard.next()
 	},
 	ctx => {
 		if (!ctx?.message?.text) {
-			ctx.reply('Это не ссылка 😡')
+			if (ctx?.update?.callback_query?.data === 'cancel') {
+				ctx.deleteMessage()
+			} else {
+				ctx.reply('Это не ссылка 😡')
+			}
 			return ctx.scene.leave()
 		}
 		if (!ctx.message.text.match(/http:/)) {
