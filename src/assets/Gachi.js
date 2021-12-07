@@ -22,7 +22,7 @@ Gachi.add = new WizardScene(
 			}
 			return ctx.scene.leave()
 		}
-		if (!ctx.message.text.match(/http:/)) {
+		if (!ctx.message.text.match(/http/) && !ctx.message.text.match(/:\/\//)) {
 			ctx.reply('Это не ссылка 😡')
 			return ctx.scene.leave()
 		}
