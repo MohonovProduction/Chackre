@@ -11,26 +11,32 @@ Joke.regular = /анек|шут/i
 Joke.add = new WizardScene(
 	'addJoke',
 	ctx => {
-		ctx.reply('Отправь мне анекдот', close_scene)
+		ctx.editMessageText('Отправь мне анекдот', close_scene)
 		return ctx.wizard.next()
 	},
 	ctx => {
-		if (ctx?.message?.text) {
-			DBConnect
-				.add('jokes', ctx.message.text)
-				.then( () => ctx.reply('Анекдот добавлен ☺️'))
-				.catch( err => {
-					if (err === 'not unique') {
-						ctx.reply('Такой анекдот уже есть 😉')
-					} else {
-						ctx.reply('Произошла ошибка 😞')
-					}
-				})
-			return ctx.scene.leave();
-		} else {
-			ctx.reply('Это не текст 😡')
-			return ctx.scene.leave();
+		if (!ctx?.message?.text) {
+			if (ctx?.update?.callback_query?.data === 'cancel') {
+				ctx.deleteMessage()
+			} else {
+				ctx.reply('Это не текст 😡')
+			}
+
+			return ctx.scene.leave()
 		}
+
+		DBConnect
+			.add('jokes', ctx.message.text)
+			.then( () => ctx.reply('Анекдот добавлен ☺️'))
+			.catch( err => {
+				if (err === 'not unique') {
+					ctx.editMessageText('Такой анекдот уже есть 😉')
+				} else {
+					ctx.editMessageText('Произошла ошибка 😞')
+				}
+			})
+
+		return ctx.scene.leave()
 	},
 )
 

@@ -28,7 +28,10 @@ bot.telegram.setMyCommands(Config.commands);
 
 //Main
 bot.start(ctx => ctx.reply('start'))
-bot.help(ctx => ctx.reply('help'))
+bot.help(ctx => {
+	ctx.reply('check console')
+	console.log(ctx.message)
+})
 
 bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew))
 
@@ -75,7 +78,5 @@ bot.command('add', (ctx) => {
 bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
 bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
-
-bot.action('cancel', ctx => { ctx.reply('операция отменена'); ctx.scene.leave() })
 
 bot.launch()
