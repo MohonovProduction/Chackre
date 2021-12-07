@@ -40,6 +40,8 @@ DBConnect.createNewDB = function () {
         .then( () => console.log('DB has been created') )
 }
 
+DBConnect.createNewDB()
+
 DBConnect.get = function (tableName) {
     return new Promise( (resolve, reject) => {
         client
