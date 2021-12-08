@@ -59,6 +59,9 @@ bot.hears(Joke.regular, ctx => {
 bot.hears(Gachi.regular, ctx => {
 	if (r()) Gachi.get().then( res => ctx.reply(res))
 })
+bot.hears(Fuck.regular, ctx => {
+	if (r()) ctx.reply('Не матерись 😠')
+})
 
 function getRandomEl(arr) {
 	const id = Math.floor(Math.random() * arr.length)

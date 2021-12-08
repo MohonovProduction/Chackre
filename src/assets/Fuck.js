@@ -7,6 +7,8 @@ const Fuck = {}
 
 const emoji = '😈,🤬,😡,😤,😠,👿,👺,👹,🦹‍♂️,!!!'
 
+Fuck.regular = /eб|ху|пизд|бля/i
+
 Fuck.add = new WizardScene(
 	'addFuck',
 	ctx => {
