@@ -118,4 +118,21 @@ DBConnect.addChat = function (chat_id, title) {
     })
 }
 
+DBConnect.select = function(table) {
+    return new Promise( (resolve, reject) => {
+        client
+            .query(`SELECT * FROM ${table}`)
+            .then( res => {
+                console.log(res)
+                let formatted = ''
+                for (let row of res.rows) formatted += `id: ${row.id} | text: ${row.text}\n`
+                resolve(formatted)
+            })
+            .catch( err => {
+                console.log(err)
+                reject(err)
+            })
+    })
+}
+
 module.exports = { DBConnect }

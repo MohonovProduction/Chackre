@@ -7,6 +7,7 @@ const { Console } = require('./src/models/Console')
 const Fuck = require('./src/assets/Fuck')
 const Joke = require('./src/assets/Joke')
 const Gachi = require('./src/assets/Gachi')
+const {DBConnect} = require("./src/models/DBConnect");
 require('dotenv').config()
 
 //Scenes
@@ -29,7 +30,6 @@ bot.telegram.setMyCommands(Config.commands);
 //Main
 bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => {
-	ctx.reply('check console')
 	console.log(ctx.message.chat)
 })
 
@@ -81,5 +81,15 @@ bot.command('add', (ctx) => {
 bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
 bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
+
+bot.command('select', ctx => {
+	console.log(ctx.message.from.id, Admin.id)
+	if (ctx.message.from.id == Admin.id) {
+		const table = ctx.message.text.replace('/select ', '')
+		DBConnect.select(table)
+			.then( res => ctx.reply(res) )
+			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
+	}
+})
 
 bot.launch()

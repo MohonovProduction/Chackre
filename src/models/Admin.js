@@ -1,6 +1,9 @@
 const { Scenes: { WizardScene } } = require('telegraf')
+require('dotenv').config()
 
 const Admin = {}
+
+Admin.id = process.env.ADMIN_ID
 
 Admin.pinMessage = function(ctx) {
 	console.log(ctx.message)
