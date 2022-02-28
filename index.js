@@ -39,7 +39,7 @@ bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤
 bot.command('fuck', ctx => Fuck.get().then( res => ctx.reply(res) ))
 //bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 
-bot.command('eval', ctx => Eval.math(ctx))
+bot.command('eval', ctx => Eval.do(ctx))
 //bot.command('ls', ctx => Console.ls(ctx))
 //bot.command('tree', ctx => Console.tree(ctx))
 
