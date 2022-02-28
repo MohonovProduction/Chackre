@@ -6,10 +6,10 @@ module.exports.Config = {
 		'Всем хорошего дня ☺ \n\n',
 	commands: [
 		//{ command: '/', description: '' }
-		{ command: '/whatsnew', description: 'что нового в последней версии' },
 		{ command: '/love', description: 'любить' },
 		{ command: '/fuck', description: 'послать' },
-		{ command: '/eval', description: 'вычислить n (+,-,*,/,mod) m' },
+		{ command: '/eval', description: 'выполнить' },
 		{ command: '/add', description: 'добавить что-то' },
+		{ command: '/whatsnew', description: 'что нового в последней версии' },
 	]
 }
