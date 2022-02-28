@@ -1,5 +1,3 @@
-'use strict'
-
 const { Scenes: { WizardScene } } = require('telegraf')
 
 const Admin = {}

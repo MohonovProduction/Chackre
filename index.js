@@ -30,7 +30,7 @@ bot.telegram.setMyCommands(Config.commands);
 bot.start(ctx => ctx.reply('start'))
 bot.help(ctx => {
 	ctx.reply('check console')
-	console.log(ctx.message)
+	console.log(ctx.message.chat)
 })
 
 bot.command('whatsnew', ctx => ctx.replyWithMarkdown(Config.whatsNew, 'Markdown'))
