@@ -37,6 +37,11 @@ bot.start(ctx => Admin.addUser(ctx) )
 bot.help(ctx => {
 	console.log(ctx.message.chat)
 })
+bot.command('test', ctx => {
+	console.log(ctx)
+	console.log(ctx.message)
+	ctx.reply('bot is working, check console')
+})
 
 bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew, { parse_mode: 'HTML' }))
 

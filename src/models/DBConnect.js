@@ -41,13 +41,13 @@ DBConnect.createNewDB = function () {
         })
         .then( () => {
             client
-                .query('CREATE TABLE users (id SERIAL, user_id int, username varchar, first_name varchar, UNIQUE(user_id))')
+                .query('CREATE TABLE users (id SERIAL, user_id bigint, username varchar, first_name varchar, UNIQUE(user_id))')
                 .then( res => console.log(res) )
                 .catch( err => console.log(err) )
         })
         .then( () => {
             client
-                .query('CREATE TABLE chats (id SERIAL, chat_id int, title varchar, UNIQUE(chat_id))')
+                .query('CREATE TABLE chats (id SERIAL, chat_id bigint, title varchar, UNIQUE(chat_id))')
                 .then( res => console.log(res) )
                 .catch( err => console.log(err) )
         })

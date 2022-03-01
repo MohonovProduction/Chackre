@@ -23,17 +23,18 @@ Admin.replyOnAudio = new WizardScene(
 )
 
 Admin.addUser = function(ctx) {
-	const user_id = ctx.message.from.id
-	const username = ctx.message.from.username
-	const firs_name = ctx.message.from.first_name
-
-	console.log(user_id, username, firs_name)
-	DBConnect.addUser(user_id, username, firs_name)
-		.then( res => {
-			ctx.reply(`Привет, ${firs_name})`)
-			console.log(res)
-		})
-		.catch( err => console.log(err) )
+	if (ctx.message.new_chat_members) {
+		const members = ctx.message.new_chat_members
+		for (let member of members) {
+			console.log(member)
+			DBConnect.addUser(member.id, member.username, member.first_name)
+				.then( res => {
+					ctx.reply(`Привет, ${member.first_name})`)
+					console.log(res)
+				})
+				.catch( err => console.log(err) )
+		}
+	}
 }
 
 Admin.addChat = function(ctx) {
