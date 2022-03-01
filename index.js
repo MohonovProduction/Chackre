@@ -29,14 +29,20 @@ bot.telegram.setMyCommands(Config.commands);
 
 //Main
 bot.on('new_chat_members', ctx => {
-	console.log(ctx, ctx.message)
+	console.log(ctx)
+	Admin.addUser(ctx).then( res => senToAdmin(res))
+	Admin.addChat(ctx)
+})
+
+bot.start(ctx => {
 	Admin.addUser(ctx)
 	Admin.addChat(ctx)
 })
-bot.start(ctx => Admin.addUser(ctx) )
-bot.help(ctx => {
-	console.log(ctx.message.chat)
+
+bot.command('code', ctx => {
+	ctx.reply('<a href="https://github.com/MohonovProduction/Chackre.git">Посмотри мой репозиторий</a>', { parse_mode: 'HTML' })
 })
+
 bot.command('test', ctx => {
 	console.log(ctx)
 	console.log(ctx.message)
@@ -94,9 +100,13 @@ bot.command('select', ctx => {
 
 bot.launch()
 
-const r = () => { return Math.random() < 0.2 }
+function senToAdmin(text) {
+	bot.telegram.sendMessage( Admin.id, text )
+}
 
-const getRandomEl = (arr) => {
+function getRandomEl(arr)  {
 	const id = Math.floor(Math.random() * arr.length)
 	return arr[id]
 }
+
+const r = () => { return Math.random() < 0.2 }

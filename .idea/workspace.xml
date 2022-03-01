@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/BotConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/BotConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/DBConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/DBConnect.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,7 @@
       <workItem from="1646148739408" duration="36000" />
       <workItem from="1646152224194" duration="602000" />
       <workItem from="1646161764253" duration="112000" />
-      <workItem from="1646166978115" duration="1058000" />
+      <workItem from="1646166978115" duration="4358000" />
     </task>
     <servers />
   </component>

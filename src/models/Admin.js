@@ -23,18 +23,34 @@ Admin.replyOnAudio = new WizardScene(
 )
 
 Admin.addUser = function(ctx) {
-	if (ctx.message.new_chat_members) {
-		const members = ctx.message.new_chat_members
-		for (let member of members) {
-			console.log(member)
-			DBConnect.addUser(member.id, member.username, member.first_name)
-				.then( res => {
-					ctx.reply(`Привет, ${member.first_name})`)
-					console.log(res)
-				})
-				.catch( err => console.log(err) )
+	console.log(2)
+	return new Promise(resolve => {
+		if (ctx.message.new_chat_members) {
+			const members = ctx.message.new_chat_members
+			for (let member of members) {
+				addUser(ctx, member.id, member.username, member.first_name)
+					.then( res => resolve(res) )
+			}
+		} else {
+			const member = ctx.message.from
+			addUser(ctx, member.id, member.username, member.first_name)
+				.then( res => resolve(res) )
 		}
-	}
+	})
+}
+
+async function addUser(ctx, user_id, username, first_name) {
+	console.log(3)
+	console.log(user_id, username, first_name)
+	return new Promise(resolve => {
+		DBConnect.addUser(user_id, username, first_name)
+			.then( res => {
+				ctx.reply(`Привет, ${first_name})`)
+				console.log(res)
+				resolve(`Кто-то меня использует - @${username}`)
+			})
+			.catch( err => console.log(err, 'user already exist') )
+	})
 }
 
 Admin.addChat = function(ctx) {
@@ -45,7 +61,7 @@ Admin.addChat = function(ctx) {
 			ctx.reply('Всем привки 🥰')
 			console.log(res)
 		})
-		.catch( err => console.log(err) )
+		.catch( err => console.log(err, 'chat already exist') )
 }
 
 module.exports = { Admin }
