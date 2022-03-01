@@ -2,6 +2,7 @@ const Eval = {}
 
 Eval.do = function(ctx) {
 	const command = ctx.message.text.replace('/eval', '')
+	console.log(command)
 	if (command.search(/mamky/i) > -1) { ctx.reply('tvoyou') }
 	else {
 		let result = ''

@@ -7,7 +7,7 @@ const { Console } = require('./src/models/Console')
 const Fuck = require('./src/assets/Fuck')
 const Joke = require('./src/assets/Joke')
 const Gachi = require('./src/assets/Gachi')
-const {DBConnect} = require("./src/models/DBConnect");
+const { DBConnect } = require("./src/models/DBConnect");
 require('dotenv').config()
 
 //Scenes
@@ -28,22 +28,22 @@ bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
 
 //Main
-bot.start(ctx => ctx.reply('start'))
+bot.on('new_chat_members', ctx => {
+	console.log(ctx, ctx.message)
+	Admin.addUser(ctx)
+	Admin.addChat(ctx)
+})
+bot.start(ctx => Admin.addUser(ctx) )
 bot.help(ctx => {
 	console.log(ctx.message.chat)
 })
 
-bot.command('whatsnew', ctx => ctx.replyWithMarkdown(Config.whatsNew, 'Markdown'))
+bot.command('whatsnew', ctx => ctx.reply(Config.whatsNew, { parse_mode: 'HTML' }))
 
 bot.command('love', ctx => ctx.reply('Люблю, целую, обнимаю ❤'))
 bot.command('fuck', ctx => Fuck.get().then( res => ctx.reply(res) ))
-//bot.command('scan', ctx => ctx.reply(Admin.scan(ctx), { parse_mode: 'Markdown' }))
 
 bot.command('eval', ctx => Eval.do(ctx))
-//bot.command('ls', ctx => Console.ls(ctx))
-//bot.command('tree', ctx => Console.tree(ctx))
-
-const r = () => { return Math.random() < 0.2 }
 
 bot.on('voice', ctx => {
 	if (r()) ctx.scene.enter('ReplyOnAudio')
@@ -62,11 +62,6 @@ bot.hears(Gachi.regular, ctx => {
 /*bot.hears(Fuck.regular, ctx => {
 	if (r()) ctx.reply('Не матерись 😠')
 })*/
-
-function getRandomEl(arr) {
-	const id = Math.floor(Math.random() * arr.length)
-	return arr[id]
-}
 
 bot.command('add', (ctx) => {
 	const inline_keyboard = Markup.inlineKeyboard([
@@ -93,3 +88,10 @@ bot.command('select', ctx => {
 })
 
 bot.launch()
+
+const r = () => { return Math.random() < 0.2 }
+
+const getRandomEl = (arr) => {
+	const id = Math.floor(Math.random() * arr.length)
+	return arr[id]
+}

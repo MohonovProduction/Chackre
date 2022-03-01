@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/DBConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/DBConnect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Eval.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Eval.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +89,8 @@
       <workItem from="1638976017483" duration="4276000" />
       <workItem from="1639485374885" duration="59000" />
       <workItem from="1646036851840" duration="10856000" />
-      <workItem from="1646065254199" duration="780000" />
+      <workItem from="1646065254199" duration="9597000" />
+      <workItem from="1646146732286" duration="1956000" />
     </task>
     <servers />
   </component>

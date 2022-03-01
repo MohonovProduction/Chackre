@@ -1,6 +1,8 @@
 const { Pool, Client } = require('pg');
 require('dotenv').config()
 
+// Data Base schema https://www.figma.com/file/JjIqqR2swyjDPytHCtbARE/Schema?node-id=0%3A1
+
 const client = new Client({
     user: process.env.USER,
     host: process.env.HOST,
@@ -72,28 +74,23 @@ DBConnect.add = function (tableName, text) {
             .catch( err => {
                 if (err.detail.indexOf('already exists') > -1) {
                     reject('not unique')
-                } else {
-                    reject(false)
                 }
+                reject(false)
                 console.log(err)
             })
     } )
 }
 
-DBConnect.addUser = function (user_id, username, name, first_name, last_name) {
+DBConnect.addUser = function (user_id, username, first_name) {
     return new Promise( (resolve, reject) => {
         client
-            .query(`INSERT INTO users (user_id, username, first_name) VALUES ('${user_id}', '${username}', '${first_name}'`)
+            .query(`INSERT INTO users (user_id, username, first_name) VALUES ('${user_id}', '${username}', '${first_name}')`)
             .then( res => {
                 resolve(true)
                 console.log(res)
             } )
             .catch( err => {
-                if (err.detail.indexOf('already exists') > -1) {
-                    reject('not unique')
-                } else {
-                    reject(false)
-                }
+                reject(false)
                 console.log(err)
             })
     })
@@ -102,11 +99,11 @@ DBConnect.addUser = function (user_id, username, name, first_name, last_name) {
 DBConnect.addChat = function (chat_id, title) {
     return new Promise((resolve, reject) => {
         client
-            .query(`INSERT INTO chats (chat_id, title) VALUES ('${chat_id}', '${title}'`)
+            .query(`INSERT INTO chats (chat_id, title) VALUES ('${chat_id}', '${title}')`)
             .then( res => {
                 resolve(true)
                 console.log(res)
-            } )
+            })
             .catch( err => {
                 if (err.detail.indexOf('already exists') > -1) {
                     reject('not unique')
@@ -125,11 +122,20 @@ DBConnect.select = function(table) {
             .then( res => {
                 console.log(res)
                 let formatted = ''
-                for (let row of res.rows) formatted += `id: ${row.id} | text: ${row.text}\n`
+                for (let row of res.rows) {
+                    for (let item in row) {
+                        formatted += `${item}: ${row[item]}  `
+                    }
+                    formatted += '\n'
+                }
                 resolve(formatted)
             })
             .catch( err => {
-                console.log(err)
+                if (err.detail.indexOf('already exists') > -1) {
+                    reject('not unique')
+                } else {
+                    reject(false)
+                }
                 reject(err)
             })
     })
