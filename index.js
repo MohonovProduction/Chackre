@@ -28,7 +28,6 @@ bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
 
 //Main
-// TODO: include bot parm to function, and remove senToAdmin()
 bot.on('new_chat_members', ctx => {
 	console.log(ctx)
 	Admin.addUser(ctx, bot)
@@ -45,8 +44,7 @@ bot.command('code', ctx => {
 })
 
 bot.command('test', ctx => {
-	console.log(ctx)
-	console.log(ctx.message)
+	console.log(ctx, ctx.message, ctx.message.from)
 	ctx.reply('bot is working, check console')
 })
 
@@ -75,6 +73,11 @@ bot.hears(Gachi.regular, ctx => {
 	if (r()) ctx.reply('Не матерись 😠')
 })*/
 
+// TODO: add this to Admin
+bot.command('select', ctx => Admin.select(ctx))
+
+bot.command('mail', ctx => Admin.mail(bot, ctx))
+
 bot.command('add', (ctx) => {
 	const inline_keyboard = Markup.inlineKeyboard([
 		[ Markup.button.callback('Анекдот', 'joke') ],
@@ -88,19 +91,6 @@ bot.command('add', (ctx) => {
 bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
 bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
-
-// TODO: add this to Admin
-bot.command('select', ctx => {
-	console.log(ctx.message.from.id, Admin.id)
-	if (ctx.message.from.id == Admin.id) {
-		const table = ctx.message.text.replace('/select ', '')
-		DBConnect.select(table)
-			.then( res => ctx.reply(res) )
-			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
-	}
-})
-
-bot.command('mail', ctx => Admin.mail(bot, ctx))
 
 bot.launch()
 

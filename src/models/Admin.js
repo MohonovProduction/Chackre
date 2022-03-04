@@ -1,5 +1,6 @@
 const { Scenes: { WizardScene } } = require('telegraf')
 const { DBConnect } = require('./DBConnect')
+const {format} = require("mysql");
 require('dotenv').config()
 
 const Admin = {}
@@ -23,26 +24,21 @@ Admin.replyOnAudio = new WizardScene(
 )
 
 Admin.addUser = function(ctx, bot) {
-	console.log(2)
-	return new Promise(resolve => {
-		if (ctx.message.new_chat_members) {
-			const members = ctx.message.new_chat_members
-			for (let member of members) {
-				addUser(ctx, member.id, member.username, member.first_name)
-					.then( res => {
-						resolve(res)
-						bot.telegram.sendMessage(Admin.id, `Меня кто-то использует: @${member.username}`)
-					})
-			}
-		} else {
-			const member = ctx.message.from
+	if (ctx.message.new_chat_members) {
+		const members = ctx.message.new_chat_members
+		for (let member of members) {
 			addUser(ctx, member.id, member.username, member.first_name)
-				.then( res => {
-					resolve(res)
+				.then( () => {
 					bot.telegram.sendMessage(Admin.id, `Меня кто-то использует: @${member.username}`)
 				})
 		}
-	})
+	} else {
+		const member = ctx.message.from
+		addUser(ctx, member.id, member.username, member.first_name)
+			.then( () => {
+				bot.telegram.sendMessage(Admin.id, `Меня кто-то использует: @${member.username}`)
+			})
+	}
 }
 
 async function addUser(ctx, user_id, username, first_name) {
@@ -74,12 +70,33 @@ Admin.mail = function(bot, ctx) {
 		DBConnect.select('chats')
 			.then( res => {
 				console.log(res)
-				for (let row of res) {
+				const rows = res.rows
+				for (let row of rows) {
 					bot.telegram.sendMessage(row.chat_id, msg)
 				}
 			})
 			.catch( err => bot.telegram.sendMessage(Admin.id, err, { parse_mode: 'HTML' }))
 	}
 }
+
+Admin.select = function(ctx) {
+	if (ctx.message.from.id == Admin.id) {
+		const table = ctx.message.text.replace('/select ', '')
+		DBConnect.select(table)
+			.then( res => {
+                let formatted = ''
+                for (let row of res.rows) {
+                    for (let item in row) {
+                        formatted += `${item}: ${row[item]}`
+                    }
+                    formatted += '\n\n'
+                }
+				ctx.reply(formatted)
+			})
+			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
+	}
+}
+
+
 
 module.exports = { Admin }

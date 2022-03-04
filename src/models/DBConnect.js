@@ -115,21 +115,12 @@ DBConnect.addChat = function (chat_id, title) {
     })
 }
 
-// TODO: remove formatted and add it to Admin
 DBConnect.select = function(table) {
     return new Promise( (resolve, reject) => {
         client
             .query(`SELECT * FROM ${table}`)
             .then( res => {
-                /*console.log(res)
-                let formatted = ''
-                for (let row of res.rows) {
-                    for (let item in row) {
-                        formatted += `${item}: ${row[item]}  `
-                    }
-                    formatted += '\n'
-                }*/
-                resolve(res.rows)
+                resolve(res)
             })
             .catch( err => {
                 if (err.detail.indexOf('already exists') > -1) {
