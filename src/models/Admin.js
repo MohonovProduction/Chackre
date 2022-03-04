@@ -64,4 +64,19 @@ Admin.addChat = function(ctx) {
 		.catch( err => console.log(err, 'chat already exist') )
 }
 
+Admin.mail = function(bot, ctx) {
+	console.log(ctx.message.from.id, Admin.id)
+	if (Admin.id == ctx.message.from.id) {
+		const msg = ctx.message.text.replace('/mail ', '')
+		DBConnect.select('chats')
+			.then( res => {
+				console.log(res)
+				for (let row of res) {
+					bot.telegram.sendMessage(row.chat_id, msg)
+				}
+			})
+			.catch( err => bot.telegram.sendMessage(Admin.id, err, { parse_mode: 'HTML' }))
+	}
+}
+
 module.exports = { Admin }

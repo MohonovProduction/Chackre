@@ -28,6 +28,7 @@ bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
 
 //Main
+// TODO: include bot parm to function, and remove senToAdmin()
 bot.on('new_chat_members', ctx => {
 	console.log(ctx)
 	Admin.addUser(ctx).then( res => senToAdmin(res))
@@ -88,6 +89,7 @@ bot.action('joke', ctx => ctx.scene.enter('addJoke'))
 bot.action('gachi', ctx => ctx.scene.enter('addGachi'))
 bot.action('fuck', ctx => ctx.scene.enter('addFuck'))
 
+// TODO: add this to Admin
 bot.command('select', ctx => {
 	console.log(ctx.message.from.id, Admin.id)
 	if (ctx.message.from.id == Admin.id) {
@@ -97,6 +99,8 @@ bot.command('select', ctx => {
 			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
 	}
 })
+
+bot.command('mail', ctx => Admin.mail(bot, ctx))
 
 bot.launch()
 
