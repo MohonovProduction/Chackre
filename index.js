@@ -31,13 +31,13 @@ bot.telegram.setMyCommands(Config.commands);
 // TODO: include bot parm to function, and remove senToAdmin()
 bot.on('new_chat_members', ctx => {
 	console.log(ctx)
-	Admin.addUser(ctx).then( res => senToAdmin(res))
-	Admin.addChat(ctx)
+	Admin.addUser(ctx, bot)
+	Admin.addChat(ctx, bot)
 })
 
 bot.start(ctx => {
-	Admin.addUser(ctx)
-	Admin.addChat(ctx)
+	Admin.addUser(ctx, bot)
+	Admin.addChat(ctx, bot)
 })
 
 bot.command('code', ctx => {
@@ -103,10 +103,6 @@ bot.command('select', ctx => {
 bot.command('mail', ctx => Admin.mail(bot, ctx))
 
 bot.launch()
-
-function senToAdmin(text) {
-	bot.telegram.sendMessage( Admin.id, text )
-}
 
 function getRandomEl(arr)  {
 	const id = Math.floor(Math.random() * arr.length)

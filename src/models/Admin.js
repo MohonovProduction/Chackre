@@ -22,46 +22,49 @@ Admin.replyOnAudio = new WizardScene(
 	}
 )
 
-Admin.addUser = function(ctx) {
+Admin.addUser = function(ctx, bot) {
 	console.log(2)
 	return new Promise(resolve => {
 		if (ctx.message.new_chat_members) {
 			const members = ctx.message.new_chat_members
 			for (let member of members) {
 				addUser(ctx, member.id, member.username, member.first_name)
-					.then( res => resolve(res) )
+					.then( res => {
+						resolve(res)
+						bot.telegram.sendMessage(Admin.id, `Меня кто-то использует: @${member.username}`)
+					})
 			}
 		} else {
 			const member = ctx.message.from
 			addUser(ctx, member.id, member.username, member.first_name)
-				.then( res => resolve(res) )
+				.then( res => {
+					resolve(res)
+					bot.telegram.sendMessage(Admin.id, `Меня кто-то использует: @${member.username}`)
+				})
 		}
 	})
 }
 
 async function addUser(ctx, user_id, username, first_name) {
-	console.log(3)
-	console.log(user_id, username, first_name)
 	return new Promise(resolve => {
 		DBConnect.addUser(user_id, username, first_name)
 			.then( res => {
 				ctx.reply(`Привет, ${first_name})`)
-				console.log(res)
 				resolve(`Кто-то меня использует - @${username}`)
 			})
 			.catch( err => console.log(err, 'user already exist') )
 	})
 }
 
-Admin.addChat = function(ctx) {
+Admin.addChat = function(ctx, bot) {
 	const chat_id = ctx.message.chat.id
 	const title = ctx.message.chat.title
 	DBConnect.addChat(chat_id, title)
 		.then( res => {
 			ctx.reply('Всем привки 🥰')
-			console.log(res)
+			bot.telegram.sendMessage(Admin.id, `Меня добавили в чат: ${title}`)
 		})
-		.catch( err => console.log(err, 'chat already exist') )
+		.catch( err => console.log(err) )
 }
 
 Admin.mail = function(bot, ctx) {
