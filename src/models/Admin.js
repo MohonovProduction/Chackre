@@ -1,6 +1,6 @@
 const { Scenes: { WizardScene } } = require('telegraf')
 const { DBConnect } = require('./DBConnect')
-const {format} = require("mysql");
+const { Config } = require('../../BotConfig')
 require('dotenv').config()
 
 const Admin = {}
@@ -63,10 +63,28 @@ Admin.addChat = function(ctx, bot) {
 		.catch( err => console.log(err) )
 }
 
+Admin.select = function(ctx) {
+	if (ctx.message.from.id == Admin.id) {
+		const table = ctx.message.text.replace('/select ', '')
+		DBConnect.select(table)
+			.then( res => {
+				let formatted = ''
+				for (let row of res.rows) {
+					for (let item in row) {
+						formatted += `${item}: ${row[item]}  `
+					}
+					formatted += '\n\n'
+				}
+				ctx.reply(formatted)
+			})
+			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
+	}
+}
+
 Admin.mail = function(bot, ctx) {
-	console.log(ctx.message.from.id, Admin.id)
 	if (Admin.id == ctx.message.from.id) {
-		const msg = ctx.message.text.replace('/mail ', '')
+		let msg = ctx.message.text.replace('/mail ', '')
+		if (msg === 'upd') msg = Config.whatsNew
 		DBConnect.select('chats')
 			.then( res => {
 				console.log(res)
@@ -76,24 +94,6 @@ Admin.mail = function(bot, ctx) {
 				}
 			})
 			.catch( err => bot.telegram.sendMessage(Admin.id, err, { parse_mode: 'HTML' }))
-	}
-}
-
-Admin.select = function(ctx) {
-	if (ctx.message.from.id == Admin.id) {
-		const table = ctx.message.text.replace('/select ', '')
-		DBConnect.select(table)
-			.then( res => {
-                let formatted = ''
-                for (let row of res.rows) {
-                    for (let item in row) {
-                        formatted += `${item}: ${row[item]}  `
-                    }
-                    formatted += '\n\n'
-                }
-				ctx.reply(formatted)
-			})
-			.catch( err => ctx.reply(`<code>${err}</code>`, { parse_mode: 'HTML' }) )
 	}
 }
 
