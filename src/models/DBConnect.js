@@ -85,14 +85,8 @@ DBConnect.addUser = function (user_id, username, first_name) {
     return new Promise( (resolve, reject) => {
         client
             .query(`INSERT INTO users (user_id, username, first_name) VALUES ('${user_id}', '${username}', '${first_name}')`)
-            .then( res => {
-                resolve(true)
-                console.log(res)
-            } )
-            .catch( err => {
-                reject(false)
-                console.log(err)
-            })
+            .then( res => reject(res))
+            .catch( err => reject(err) )
     })
 }
 
@@ -100,18 +94,8 @@ DBConnect.addChat = function (chat_id, title) {
     return new Promise((resolve, reject) => {
         client
             .query(`INSERT INTO chats (chat_id, title) VALUES ('${chat_id}', '${title}')`)
-            .then( res => {
-                resolve(true)
-                console.log(res)
-            })
-            .catch( err => {
-                if (err.detail.indexOf('already exists') > -1) {
-                    reject('not unique')
-                } else {
-                    reject(false)
-                }
-                console.log(err)
-            })
+            .then( res => resolve(true) )
+            .catch( err => reject(err) )
     })
 }
 
@@ -119,17 +103,8 @@ DBConnect.select = function(table) {
     return new Promise( (resolve, reject) => {
         client
             .query(`SELECT * FROM ${table}`)
-            .then( res => {
-                resolve(res)
-            })
-            .catch( err => {
-                if (err.detail.indexOf('already exists') > -1) {
-                    reject('not unique')
-                } else {
-                    reject(false)
-                }
-                reject(err)
-            })
+            .then( res => resolve(res) )
+            .catch( err => reject(err) )
     })
 }
 

@@ -27,7 +27,7 @@ bot.use(session())
 bot.use(stage.middleware())
 bot.telegram.setMyCommands(Config.commands);
 
-//Main
+
 bot.on('new_chat_members', ctx => {
 	console.log(ctx)
 	Admin.addUser(ctx, bot)
@@ -73,7 +73,6 @@ bot.hears(Gachi.regular, ctx => {
 	if (r()) ctx.reply('Не матерись 😠')
 })*/
 
-// TODO: add this to Admin
 bot.command('select', ctx => Admin.select(ctx))
 
 bot.command('mail', ctx => Admin.mail(bot, ctx))

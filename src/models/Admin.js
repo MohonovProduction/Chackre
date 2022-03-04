@@ -87,7 +87,7 @@ Admin.select = function(ctx) {
                 let formatted = ''
                 for (let row of res.rows) {
                     for (let item in row) {
-                        formatted += `${item}: ${row[item]}`
+                        formatted += `${item}: ${row[item]}  `
                     }
                     formatted += '\n\n'
                 }
