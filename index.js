@@ -1,6 +1,6 @@
 const { Telegraf, session, Scenes: { WizardScene, Stage }, Markup } = require('telegraf')
 const fs = require('fs')
-const { Config } = require('./BotConfig')
+const { Config } = require('./bot_config')
 const { Admin } = require('./src/models/Admin')
 const { Eval } = require('./src/models/Eval')
 const { Console } = require('./src/models/Console')

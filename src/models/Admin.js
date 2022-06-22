@@ -1,6 +1,6 @@
 const { Scenes: { WizardScene } } = require('telegraf')
 const { DBConnect } = require('./DBConnect')
-const { Config } = require('../../BotConfig')
+const { Config } = require('../../bot_config')
 require('dotenv').config()
 
 const Admin = {}
